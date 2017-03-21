@@ -45,16 +45,28 @@ public class Game {
 	}
 	
 	
-	void displayboard(int player){
-		System.out.printf("               \n");
-	    for(int i = 0; i < Globals.n; i++){
-	        if(i != player){
-	        	System.out.printf("%02d ", board.board[i]);
-	        }else{
-	        	System.out.printf("* ");
+	void displayboard(ArrayList<Integer> player, ArrayList<String> name){
+		System.out.printf("               ");
+	    //ei loop prottekta cell number print korte jabe. but prottekta cell print korar age arekta loop chalabe
+	    //arek ta loop cholbe player vector er upor. jeta dekhbe ekhon ami je cell print korchi sei cell e kono player ase ki na
+	    //or in other words oi cell number er sathe player vector er kono player er number match khay ki na.
+	    //jodi match khay tahole sei player er name oi cell number er bodole print korbe.
+
+	    for(int i = 0; i < 100; i++){
+	        int temp = board.board[i]; //je cell print korte jabo seta rakhlam
+	        int flag = 0; //
+	        for(int j = 0; j < name.size(); j++){
+	        	//System.out.printf("Size: %d, J = %d \n", player.size(), j);
+	            if(temp == player.get(j)){
+	            	System.out.print(name.get(j) + " ");
+	                flag = 1;
+	                break;
+	            }
 	        }
-	        if((i+1)%10 == 0) System.out.printf("\n");
+	        if(flag == 0) System.out.printf("%02d ", board.board[i]);
+	        if((i+1)%10 == 0) System.out.printf("\n               ");
 	    }
+	    
 	    System.out.printf("\n");
 	}
 }

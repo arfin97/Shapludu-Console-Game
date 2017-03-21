@@ -7,8 +7,19 @@ public class Main {
 		Game game = new Game();
 		Board board = new Board();
 		Scanner sc = new Scanner(System.in);
-
-	    int player = 0;
+		
+		ArrayList<Integer> player = new ArrayList<Integer>();
+		ArrayList<String> name = new ArrayList<String>();
+		int p;
+	    System.out.printf("How many players? \n");
+	    p = Integer.parseInt(sc.nextLine());
+	    for(int i = 0; i < p; i++) player.add(0);
+	    for(int i = 0; i < p; i++){
+            String temp = "p" + (i+1);;
+            name.add(temp);
+        }
+	    
+	    //int player = 0;
 	    int boardpositionarrayindex = 0; //board index, for mapping purpose;
 	    int chal = 0; //for counting the number of dice rolls;
 		
@@ -19,22 +30,28 @@ public class Main {
 	        pause = Integer.parseInt(sc.nextLine());
 
 	        //rolling the dice;
-	        player = game.rolldice(player);
+	        //player = game.rolldice(player);
+	        player.set(0, game.rolldice(player.get(0)));
 	        
-	            if(player >= 100){
+	            if(player.get(0) >= 100){
 	                System.out.println(player  + " game jitsos");
 	                System.out.printf(":D won won. \n%d chal e jitsos. JOSS!\n", chal);
-	                game.displayboard(player);
+	                //game.displayboard(player.get(0), name.get(0));
 	                break;
 	            }
+	            
+	            boardpositionarrayindex = game.boardposition(player.get(0));
+	            
+	            game.displayboard(player, name);
 
-	            boardpositionarrayindex = game.boardposition(player);
-
-	            game.displayboard(boardpositionarrayindex);
-
-	            if(Globals.shapKatse == true) player = board.board[boardpositionarrayindex];
-	            if(Globals.chongeUtsi == true) player = board.board[boardpositionarrayindex];
-	            chal++;
+	            if(Globals.shapKatse == true) player.set(0, board.board[boardpositionarrayindex]);
+	            if(Globals.chongeUtsi == true) player.set(0, board.board[boardpositionarrayindex]);
+	            
+	            player.add(player.get(0));
+	            player.remove(0);
+	            name.add(name.get(0));
+	            name.remove(name.get(0));
+	            System.out.println(name.get(0) + " - player er chal");
 	    }
 	
 	}
